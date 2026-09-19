@@ -1,44 +1,81 @@
 # BugWise AI
 
-BugWise AI is a standalone, API-first bug analysis platform. It sends structured bug reports to Google Gemini, validates the JSON response, stores successful analyses in MongoDB, and provides a responsive dashboard for review.
+AI-assisted bug analysis web application that helps developers analyze
+software bug reports and generate structured debugging insights.
 
-## Setup
+BugWise AI uses a React.js frontend, Node.js/Express backend, Google Gemini
+for AI-assisted analysis, and MongoDB for storing successful analyses.
 
-### Backend
+## Features
 
-```bash
-cd backend
-npm install
-copy .env.example .env
-```
+- Submit structured software bug reports
+- AI-assisted bug analysis using Google Gemini
+- Bug categorization
+- Severity and priority classification
+- Possible cause analysis
+- Suggested fixes
+- Developer advice
+- Testing suggestions
+- Analysis history
+- Search and filtering
+- Save and delete analyses
+- REST API architecture
+- Input validation and error handling
+- Responsive dashboard interface
 
-Set `MONGODB_URI` and `GEMINI_API_KEY` in `backend/.env`, then run:
-
-```bash
-node server.js
-```
-
-The API runs at `http://localhost:5000`.
+## Tech Stack
 
 ### Frontend
 
-```bash
-cd frontend
-npm install
-npm run dev
+- React.js
+- JavaScript
+- HTML5
+- CSS3
+- Vite
+
+### Backend
+
+- Node.js
+- Express.js
+- REST APIs
+
+### Database
+
+- MongoDB
+
+### AI Integration
+
+- Google Gemini API
+
+### Development Tools
+
+- Git
+- GitHub
+- VS Code
+- npm
+
+## Project Architecture
+
+```text
+BugWise AI
+│
+├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── services/
+│   │   └── App.jsx
+│   └── package.json
+│
+├── backend/
+│   ├── controllers/
+│   ├── middleware/
+│   ├── models/
+│   ├── routes/
+│   ├── services/
+│   ├── server.js
+│   └── package.json
+│
+├── .gitignore
+└── README.md
 ```
-
-The Vite development server runs at the URL shown in the terminal.
-
-## API
-
-- `GET /api/health` checks server availability.
-- `POST /api/analyze-bug` analyzes and stores a report. Required fields: `title`, `description`, `programmingLanguage`. Optional fields: `errorMessage`, `expectedBehavior`, `actualBehavior`, `stepsToReproduce`.
-- `GET /api/analyses` lists analyses. Supports `search`, `category`, `severity`, `priority`, and `programmingLanguage` query filters.
-- `GET /api/analyses/:id` returns one analysis.
-- `PATCH /api/analyses/:id/saved` accepts `{ "isSaved": true }` or `{ "isSaved": false }`.
-- `DELETE /api/analyses/:id` deletes an analysis.
-
-The analysis response contains `category`, `programmingLanguage`, `severity`, `priority`, `summary`, `possibleCause`, `suggestedFix`, `developerAdvice`, and `testingSuggestions`. Gemini is accessed only by the backend; API keys are never sent to the browser.
-
-MongoDB is required for analysis persistence. If it is unavailable, the API returns `503` with a clear message while the server remains available for health checks.
